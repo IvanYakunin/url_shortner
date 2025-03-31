@@ -108,6 +108,8 @@ docker-compose up --build
 
 ## Инструкция по запуску (через Python)
 
+```bash
 pip install -r requirements.txt
 redis-server
 uvicorn main:app --reload
+```
