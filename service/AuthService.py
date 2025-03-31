@@ -12,7 +12,7 @@ from DataClasses.DataClasses import UserCreateDC, TokenDC
 from Database.redis import get_redis_client
 
 class AuthService:
-    SECRET_KEY = "your_secret_key"  # Лучше загружать из .env
+    SECRET_KEY = "your_secret_key"
     ALGORITHM = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 

@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field, ValidationError, field_validator
+import re
 from datetime import datetime
 
 class LongUrlDC(BaseModel):
@@ -8,6 +9,16 @@ class CreateShortUrlDC(BaseModel):
     url: str
     expiresAt: datetime = None
     alias: str = ""
+
+    @field_validator("alias")
+    def validate_alias(cls, value):
+        if not value:
+            return value  # alias необязательный — пустая строка допустима
+        if len(value) > 7:
+            raise ValueError("Alias must be at most 7 characters long.")
+        if not re.fullmatch(r"^[a-zA-Z0-9_]+$", value):
+            raise ValueError("Alias can only contain letters, digits and underscores: [a-zA-Z0-9_]")
+        return value
 
 class ShortUrlDC(BaseModel):
     url: str
